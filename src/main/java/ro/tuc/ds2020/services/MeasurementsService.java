@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ro.tuc.ds2020.dtos.DeviceDetailsDTO;
 import ro.tuc.ds2020.dtos.MeasurementsDetailsDTO;
 import ro.tuc.ds2020.dtos.builders.DeviceBuilder;
@@ -44,7 +43,6 @@ public class MeasurementsService {
         Optional<Measurements> prosumerOptional = measurementsRepository.findById(id_device);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("Device with id {} was not found in db", id_device);
-            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " + id_device);
         }
         return MeasurementsBuilder.toMeasurementsDetailsDTO(prosumerOptional.get());
     }
@@ -74,7 +72,6 @@ public class MeasurementsService {
         Optional<Measurements> prosumerOptional = measurementsRepository.findById(measurementsDetailsDTO.getId());
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("Device with id {} was not found in db", measurementsDetailsDTO.getId());
-            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " +  measurementsDetailsDTO.getId());
         }
         Measurements measurements=prosumerOptional.get();
         if(measurementsDetailsDTO.getConsumption() !=null){

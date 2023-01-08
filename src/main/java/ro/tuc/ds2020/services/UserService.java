@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ro.tuc.ds2020.dtos.UserDTO;
 import ro.tuc.ds2020.dtos.UserDetailsDTO;
 import ro.tuc.ds2020.dtos.builders.UserBuilder;
@@ -43,7 +42,6 @@ public class UserService {
 
         if (!prosumerOptionalEmail.isPresent() || !prosumerOptionalPassword.isPresent()) {
             LOGGER.error("User was not found in db", email);
-            throw new ResourceNotFoundException(User.class.getSimpleName());
         }
 
         for(User u : prosumerOptionalPassword.get()) {
@@ -59,7 +57,6 @@ public class UserService {
         Optional<User> prosumerOptional = userRepository.findById(id);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", id);
-            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + id);
         }
         return UserBuilder.toUserDetailsDTO(prosumerOptional.get());
     }
@@ -76,7 +73,6 @@ public class UserService {
 
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", id);
-            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + id);
         }
 
         userRepository.deleteById(id);
@@ -86,7 +82,6 @@ public class UserService {
         Optional<User> prosumerOptional = userRepository.findById(userDTO.getId());
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", userDTO.getId());
-            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + userDTO.getId());
         }
 
         User user = prosumerOptional.get();
@@ -116,7 +111,6 @@ public class UserService {
         Optional<User> prosumerOptional = userRepository.findById(userId);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", userId);
-            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + userId);
         }
 
         User user = prosumerOptional.get();
@@ -136,7 +130,6 @@ public class UserService {
         Optional<User> prosumerOptional = userRepository.findById(userId);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("User with id {} was not found in db", userId);
-            throw new ResourceNotFoundException(User.class.getSimpleName() + " with id: " + userId);
         }
 
         User user = prosumerOptional.get();

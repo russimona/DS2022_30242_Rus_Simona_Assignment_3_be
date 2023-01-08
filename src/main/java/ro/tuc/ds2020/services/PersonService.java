@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ro.tuc.ds2020.dtos.PersonDTO;
 import ro.tuc.ds2020.dtos.PersonDetailsDTO;
 import ro.tuc.ds2020.dtos.builders.PersonBuilder;
@@ -37,7 +36,6 @@ public class PersonService {
         Optional<Person> prosumerOptional = personRepository.findById(id);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("Person with id {} was not found in db", id);
-            throw new ResourceNotFoundException(Person.class.getSimpleName() + " with id: " + id);
         }
         return PersonBuilder.toPersonDetailsDTO(prosumerOptional.get());
     }

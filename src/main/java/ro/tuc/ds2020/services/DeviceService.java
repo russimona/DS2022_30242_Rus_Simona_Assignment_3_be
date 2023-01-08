@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ro.tuc.ds2020.controllers.handlers.exceptions.model.ResourceNotFoundException;
 import ro.tuc.ds2020.dtos.DeviceDTO;
 import ro.tuc.ds2020.dtos.DeviceDetailsDTO;
 import ro.tuc.ds2020.dtos.builders.DeviceBuilder;
@@ -37,7 +36,7 @@ public class DeviceService {
         Optional<Device> prosumerOptional = deviceRepository.findById(id);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("Device with id {} was not found in db", id);
-            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " + id);
+
         }
         return DeviceBuilder.toDeviceDetailsDTO(prosumerOptional.get());
     }
@@ -53,7 +52,6 @@ public class DeviceService {
         Optional<Device> prosumerOptional = deviceRepository.findById(id);
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("Device with id {} was not found in db", id);
-            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " + id);
         }
 
         deviceRepository.delete(prosumerOptional.get());
@@ -63,7 +61,6 @@ public class DeviceService {
         Optional<Device> prosumerOptional = deviceRepository.findById(deviceDTO.getId());
         if (!prosumerOptional.isPresent()) {
             LOGGER.error("Device with id {} was not found in db", deviceDTO.getId());
-            throw new ResourceNotFoundException(Device.class.getSimpleName() + " with id: " + deviceDTO.getId());
         }
 
         Device device = prosumerOptional.get();
